@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CalFriend — Calorie & Health Tracking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #F8F5F1;
+      --card-white: #ffffff;
+      --text-dark: #1a1a1a;
+      --text-muted: #5a5a5a;
+      --accent-orange: #e85d2e;
+      --accent-red: #d8434a;
+      --accent-blue: #2d6ae0;
+      --accent-green: #2e9d6e;
+      --accent-teal: #0d9488;
+      --accent-purple: #7c3aed;
+      --accent-pink: #db2777;
+      --radius: 20px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.06);
+      --shadow-colored: 0 8px 32px rgba(45, 106, 224, 0.15);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--bg-cream);
+      color: var(--text-dark);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,245,241,0.95) 100%);
+      border-radius: 0 0 var(--radius) var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .logo {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 1.5rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--accent-orange);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 1.5rem 5rem;
+      max-width: 800px;
+      margin: 0 auto;
+      background: linear-gradient(160deg, #fff8f0 0%, #f0f4ff 40%, #f0fff4 100%);
+      border-radius: var(--radius);
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(232, 93, 46, 0.1);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .hero .logo-hero {
+      height: 120px;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding: 0 1rem;
+      color: var(--text-dark);
+    }
+
+    /* Feature + screenshot combined cards */
+    .features {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .feature-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 3rem;
+      background: var(--card-white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-left: 5px solid var(--block-accent, var(--accent-blue));
+    }
+
+    .feature-block:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+
+    .feature-block.reverse {
+      grid-template-columns: 1fr 1fr;
+      border-left: none;
+      border-right: 5px solid var(--block-accent, var(--accent-orange));
+    }
+
+    .feature-block.reverse .feature-content {
+      order: 2;
+    }
+
+    .feature-block.reverse .feature-image {
+      order: 1;
+    }
+
+    .feature-content {
+      padding: 2rem 2rem 2rem 2.5rem;
+    }
+
+    .feature-block.reverse .feature-content {
+      padding: 2rem 2.5rem 2rem 2rem;
+    }
+
+    .feature-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--block-accent, var(--accent-blue));
+      font-weight: 700;
+    }
+
+    .feature-content p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .feature-image {
+      padding: 1rem;
+      background: linear-gradient(145deg, var(--block-bg, #f8fafc) 0%, #fff 100%);
+    }
+
+    .feature-image img {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .feature-block.calorie { --block-accent: #e85d2e; --block-bg: #fff7ed; }
+    .feature-block.activity { --block-accent: #0d9488; --block-bg: #f0fdfa; }
+    .feature-block.water { --block-accent: #2d6ae0; --block-bg: #eff6ff; }
+    .feature-block.fasting { --block-accent: #db2777; --block-bg: #fdf2f8; }
+    .feature-block.profile { --block-accent: #7c3aed; --block-bg: #f5f3ff; }
+    .feature-block.meals { --block-accent: #2e9d6e; --block-bg: #f0fdf4; }
+    .feature-block.health { --block-accent: #d8434a; --block-bg: #fff1f2; }
+
+    .cta {
+      text-align: center;
+      padding: 4rem 1.5rem 5rem;
+      background: linear-gradient(135deg, #fff8f0 0%, #f0f4ff 100%);
+      border-radius: var(--radius);
+      margin: 0 1.5rem 2rem;
+      border: 1px solid rgba(232, 93, 46, 0.15);
+    }
+
+    .cta h2 {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-dark);
+    }
+
+    .cta p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.875rem 2rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      background: linear-gradient(135deg, var(--accent-orange), #f97316);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(232, 93, 46, 0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(232, 93, 46, 0.45);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 768px) {
+      .feature-block,
+      .feature-block.reverse {
+        grid-template-columns: 1fr;
+        border-left: 5px solid var(--block-accent) !important;
+        border-right: none !important;
+      }
+      .feature-block.reverse .feature-content { order: 1; }
+      .feature-block.reverse .feature-image { order: 2; }
+      .feature-content,
+      .feature-block.reverse .feature-content {
+        padding: 1.5rem;
+      }
+      .feature-image {
+        padding: 1rem 1.5rem 2rem;
+      }
+      .feature-image img {
+        max-width: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="assets/calfriend-8dbf1a11-fd25-4fa6-a868-53b9fe0f87eb.png" alt="CalFriend" class="logo">
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#cta">Get started</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <img src="assets/calfriend-8dbf1a11-fd25-4fa6-a868-53b9fe0f87eb.png" alt="CalFriend" class="logo-hero">
+    <h1>Your calorie & health companion</h1>
+    <p>Track daily calories, water, activity, and intermittent fasting in one app. Reach your goals with CalFriend.</p>
+  </section>
+
+  <section class="features" id="features">
+    <h2 class="section-title">Features</h2>
+
+    <article class="feature-block calorie">
+      <div class="feature-content">
+        <h3>Calorie & macro tracking</h3>
+        <p>Track calories and macros by meal: breakfast, lunch, dinner, and snacks. See your daily burn vs. intake and hit your targets with the at-a-glance dashboard.</p>
+      </div>
+      <div class="feature-image">
+        <img src="assets/1-b729fe46-5009-429e-80d6-2d44dcfc0195.png" alt="Home — Calorie summary and meal cards">
+      </div>
+    </article>
+
+    <article class="feature-block activity reverse">
+      <div class="feature-content">
+        <h3>Activity</h3>
+        <p>Log walking, running, cycling, and more. Track calories burned and keep your activity in sync with your daily goals.</p>
+      </div>
+      <div class="feature-image">
+        <img src="assets/2-20400b90-b533-4bbf-a7d7-0c7a7f994532.png" alt="Activity screen">
+      </div>
+    </article>
+
+    <article class="feature-block water">
+      <div class="feature-content">
+        <h3>Daily water goal</h3>
+        <p>Track intake by glasses, set a daily target, turn on reminders, and view your last 7 days at a glance.</p>
+      </div>
+      <div class="feature-image">
+        <img src="assets/3-61a1de7c-fa9a-423c-b87b-11a5678f978c.png" alt="Daily water goal">
+      </div>
+    </article>
+
+    <article class="feature-block fasting reverse">
+      <div class="feature-content">
+        <h3>Intermittent fasting</h3>
+        <p>Follow 12:12, 14:10, 16:8, or 17:7 plans. See your fasting timer, body state, and keep the fasting card on your home screen.</p>
+      </div>
+      <div class="feature-image">
+        <img src="assets/fast-b4dd6166-da85-4c8f-8037-2388da017aba.png" alt="Fasting detail">
+      </div>
+    </article>
+
+    <article class="feature-block profile">
+      <div class="feature-content">
+        <h3>Profile & progress</h3>
+        <p>Manage weight goal, BMI, weight history, and meal calorie targets. Stay on track with a clear view of your progress.</p>
+      </div>
+      <div class="feature-image">
+        <img src="assets/4-d11943fc-282d-401e-8691-f8030a77a9e6.png" alt="Profile screen">
+      </div>
+    </article>
+
+    <article class="feature-block meals reverse">
+      <div class="feature-content">
+        <h3>Meals & food</h3>
+        <p>Search foods, add items to meals, and create custom foods with nutrition per 100g. Use favorites and often-used items for quick logging.</p>
+      </div>
+      <div class="feature-image">
+        <img src="assets/6-c9f86aaf-bab5-4dcb-a74f-77f037151caa.png" alt="Breakfast — Add food">
+      </div>
+    </article>
+
+    <article class="feature-block health">
+      <div class="feature-content">
+        <h3>Apple Health</h3>
+        <p>Connect Apple Health to sync steps, active energy, and heart rate. See today’s stats and steps over time in one place.</p>
+      </div>
+      <div class="feature-image">
+        <img src="assets/h-12401d6a-bf19-403a-a8f5-a2a90c25faff.png" alt="Apple Health integration">
+      </div>
+    </article>
+  </section>
+
+  <section class="cta" id="cta">
+    <h2>Reach your goals with CalFriend</h2>
+    <p>Calories, water, activity, and fasting — all in one place.</p>
+    <a href="#" class="btn">Get the app</a>
+  </section>
+
+  <footer>
+    CalFriend — Calorie & Health Tracking
+  </footer>
+</body>
+</html>
